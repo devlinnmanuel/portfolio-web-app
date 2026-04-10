@@ -1,1 +1,1 @@
-Web Portfolio dengan React.js x Tailwind CSS, Node.js, PostgreSQL
+Full-stack Web Portfolio dengan React.js x Tailwind CSS, Node.js, PostgreSQL
