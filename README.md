@@ -100,7 +100,7 @@ This is my personal portfolio website, a project I'm actively building as both a
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/portfolio.git
+git clone https://github.com/devlinnmanuel/portfolio-web-app.git
 cd portfolio
 
 # Install dependencies
@@ -134,8 +134,6 @@ cd server && npm run dev
 # Start the frontend (new terminal)
 cd client && npm run dev
 ```
-
----
 
 ## Deployment
 
