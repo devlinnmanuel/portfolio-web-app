@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+:root {
+  --pearl-aqua: #75DDDD;
+  --pacific-cyan: #508991;
+  --deepspace-blue: #172A3A;
+  --dark-teal: #004346;
+  --mint-leaf: #09BC8A;
+}
+
 /* :root {
   --text: #6b6375;
   --text-h: #08060d;
