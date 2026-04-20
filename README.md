@@ -27,7 +27,7 @@ This is my personal portfolio website, a project I'm actively building as both a
 
 ### Coming Soon
 
-- Bilingual toggle (Indonesian / English)
+- Bilingual toggle (Indonesian/English)
 - Fully responsive layout
 - CV/Resume download (linked from Google Drive)
 
@@ -36,15 +36,15 @@ This is my personal portfolio website, a project I'm actively building as both a
 ### Frontend
 - **React** (with Vite)
 - **Tailwind CSS**
-- **React Router** — client-side routing
-- **Axios** — API integration
-- **GSAP** — animations and scroll-triggered effects
-- **Lenis** — smooth scroll experience
-- **Spline** — 3D scene integration
+- **React Router** (client-side routing)
+- **Axios** (API integration)
+- **GSAP** (animations and scroll-triggered effects)
+- **Lenis** (smooth scroll experience)
+- **Spline** (3D scene integration)
 
 ### Backend
 - **Node.js / Express**
-- **JWT** — authentication & auth state management
+- **JWT** (authentication & auth state management)
 - **Input validation** (express-validator)
 - **Error handling middleware**
 
@@ -52,11 +52,11 @@ This is my personal portfolio website, a project I'm actively building as both a
 - **PostgreSQL**
 
 ### DevOps & Tooling
-- **Git / GitHub** — version control
-- **Postman** — API testing
-- **VS Code** — code editor
-- `.env` files — environment configuration
-- **npm** — package management
+- **Git / GitHub** (version control)
+- **Postman** (API testing)
+- **VS Code** (code editor)
+- `.env` files (environment configuration)
+- **npm** (package management)
 
 ## Database Entities
 
@@ -80,11 +80,11 @@ This is my personal portfolio website, a project I'm actively building as both a
 | `ProjectTech` | id, id_tech (FK), id_project (FK) |
 
 **Key Relationships:**
-- `Project ↔ TechStack` — Many to Many
-- `Project ↔ Media` — Many to Many
-- `Users ↔ Chats` — Many to Many (via ChatParticipants)
-- `Chats → Messages` — One to Many
-- `Messages → MessageReads` — One to Many
+- `Project ↔ TechStack` : Many to Many
+- `Project ↔ Media` : Many to Many
+- `Users ↔ Chats` : Many to Many (via ChatParticipants)
+- `Chats → Messages` : One to Many
+- `Messages → MessageReads` : One to Many
 
 </details>
 
