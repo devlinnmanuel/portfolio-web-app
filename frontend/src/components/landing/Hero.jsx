@@ -1,3 +1,6 @@
+import Spline from '@splinetool/react-spline';
+
+
 export default function Hero() {
   const roles = ['Web Development', 'Software Engineer', 'Cybersecurity'];
 
@@ -6,8 +9,17 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-(--deepspace-blue)"
     >
-      {/* Background radial glow */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 z-0">
+          <Spline
+            scene="https://prod.spline.design/BJemW-DRwm-eeX3z/scene.splinecode" 
+            className='w-full h-full'
+          />
+      </div>
+
+      <div className="absolute inset-0 bg-(--deepspace-blue)/70 z-0" />
+
+      {/* Glow */}
+      <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-175 rounded-full bg-[#0d3d3d]/40 blur-3xl" />
       </div>
 
@@ -19,9 +31,7 @@ export default function Hero() {
             <span
               key={role}
               className="px-4 py-1 rounded-full border border-(--pacific-cyan) text-(--pacific-cyan) text-sm bg-none backdrop-blur-sm"
-            >
-              {role}
-            </span>
+            >{role}</span>
           ))}
         </div>
 
@@ -41,22 +51,28 @@ export default function Hero() {
         <div className="flex flex-wrap justify-center gap-4">
           <a
             href="#projects"
+            onClick={(e) => {
+              e.preventDefault();
+
+              const el = document.getElementById("projects");
+              if (el) {
+                window.autoLenis?.scrollTo(el);
+              }
+            }}
             className="px-6 py-3 rounded-full bg-(--pacific-cyan) text-white font-medium hover:bg-(--mint-leaf) transition-all duration-200"
-          >
-            View My Projects
-          </a>
+            >View My Projects</a>
           <a
             href="#contact"
-            className="px-6 py-3 rounded-full bg-(--pacific-cyan) text-white font-medium hover:bg-(--mint-leaf) transition-all duration-200"
-          >
-            Let's Talk
-          </a>
-        </div>
+            onClick={(e) => {
+              e.preventDefault();
 
-        {/* Placeholder for illustration */}
-        <div className="mt-14 w-56 h-56 rounded-full border-2 border-dashed border-[#2a5555] flex items-center justify-center text-gray-600 text-sm">
-          {/* Ganti dengan <img src="..." /> nanti */}
-          Illustration here
+              const el = document.getElementById("contact");
+              if (el) {
+                window.autoLenis?.scrollTo(el);
+              }
+            }}
+            className="px-6 py-3 rounded-full bg-(--pacific-cyan) text-white font-medium hover:bg-(--mint-leaf) transition-all duration-200"
+          >Let's Talk</a>
         </div>
       </div>
     </section>

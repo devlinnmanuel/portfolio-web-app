@@ -1,9 +1,9 @@
 import Navbar from '../components/Navbar';
-import Hero from '../components/Hero';
-import CoreDisciplines from '../components/CoreDisciplines';
-import Projects from '../components/Projects';
-import RecentActivities from '../components/RecentActivities';
-import Contact from '../components/Contact';
+import Hero from '../components/landing/Hero';
+import CoreDisciplines from '../components/landing/CoreDisciplines';
+import Projects from '../components/landing/Projects';
+import RecentActivities from '../components/landing/RecentActivities';
+import Contact from '../components/landing/Contact';
 import Footer from '../components/Footer';
  
 
@@ -20,22 +20,34 @@ gsap.registerPlugin(useGSAP);
 
 export default function LandingPage() {
   useEffect(() => {
-    const lenis = new Lenis({ smooth: true }); // bikin ada smooth scroll
+    const lenis = new Lenis({ smooth: true }); // smooth scroll
+    const autoLenis = new Lenis({ 
+      duration: 1.2,
+      smooth: true 
+    });
+
+    window.autoLenis = autoLenis;
 
     function raf(time) {
       lenis.raf(time);
+      autoLenis.raf(time);
       requestAnimationFrame(raf);
     }
 
     requestAnimationFrame(raf); // start engine
     lenis.on("scroll", ScrollTrigger.update);
+    autoLenis.on("scroll", ScrollTrigger.update);
 
-    return () => lenis.destroy();
+    return () => {
+      lenis.destroy();
+      autoLenis.destroy();
+      window.autoLenis = null;
+    };
   }, []);
   
   return (
     <div className="min-h-screen bg-[#0d1f1f] text-white font-sans">
-      <Navbar />
+      <Navbar page="Home"/>
       <Hero />
       <CoreDisciplines />
       <Projects />

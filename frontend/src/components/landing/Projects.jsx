@@ -31,9 +31,21 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 px-6 bg-(--deepspace-blue)">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-(--mint-leaf) mb-10">Projects</h2>
+    <section id="projects" className="relative py-20 px-6 bg-(--deepspace-blue)">
+      <div
+        className="absolute inset-0 z-0 opacity-40"
+        style={{
+          backgroundImage: `
+            radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px),
+            linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)
+          `,
+          backgroundSize: "60px 60px, 60px 60px, 60px 60px"
+        }}
+      />
+      
+      <div className="relative z-0 max-w-5xl mx-auto">
+        <h2 id="projects" className="text-3xl md:text-4xl font-bold text-(--mint-leaf) mb-10">Projects</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {projects.map((project) => (
@@ -67,6 +79,7 @@ export default function Projects() {
             </div>
           ))}
         </div>
+
 
         {/* View all link */}
         <div className="mt-10 text-right">

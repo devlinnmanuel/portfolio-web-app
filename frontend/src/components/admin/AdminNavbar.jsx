@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Projects', href: '#projects' },
+  { label: 'Dashboard', href: '/admin' },
+  { label: 'Analytics', href: '#adminConsole' },
+  { label: 'Projects', href: '#projectInventory' },
   { label: 'Contact', href: '#contact' },
 ];
 
 export default function Navbar({ page }) {
-  const [active, setActive] = useState(page || 'Home');
+  const [active, setActive] = useState(page || 'Dashboard');
   const [lang, setLang] = useState('EN');
 
   return (

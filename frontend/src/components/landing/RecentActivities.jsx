@@ -24,8 +24,23 @@ const activities = [
 
 export default function RecentActivities() {
   return (
-    <section id="activities" className="py-20 px-6 bg-(--pacific-cyan)">
-      <div className="max-w-5xl mx-auto">
+    <section
+      id="activities"
+      className="relative py-20 px-6 bg-(--pacific-cyan)"
+    >
+      <div
+        className="absolute inset-0 z-0 opacity-40"
+        style={{
+          backgroundImage: `
+            radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px),
+            linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)
+          `,
+          backgroundSize: "60px 60px, 60px 60px, 60px 60px"
+        }}
+      />
+      
+      <div className="relative z-0 max-w-5xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-(--pearl-aqua) mb-10">Recent Activities</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
