@@ -1,7 +1,18 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Delete from './Delete';
+import { FaSearch, FaEye, FaTrash, FaFilter } from 'react-icons/fa';
+import { MdEdit } from "react-icons/md";
 
 const categories = ['All Projects', 'Full-stack', 'Frontend', 'Backend', 'Database'];
+
+const options = [
+  { label: "Latest", value: "latest" },
+  { label: "Release Date", value: "release" },
+  { label: "Last Updated", value: "updated" },
+  { label: "A → Z", value: "az" },
+  { label: "Z → A", value: "za" },
+  { label: "Most Popular", value: "popular" },
+];
 
 // Data dummy — nanti diambil dari API backend
 const mockProjects = [
@@ -44,11 +55,31 @@ export default function ProjectInventory() {
   const [activeCategory, setActiveCategory] = useState('All Projects');
   const [search, setSearch] = useState('');
   const [deleteTargetId, setDeleteTargetId] = useState(null);
+  const [sort, setSort] = useState("latest");
+
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(options[0]);
+  const ref = useRef(null);
 
   const filtered = mockProjects.filter((p) => {
     const matchCat = activeCategory === 'All Projects' || p.category === activeCategory;
     const matchSearch = p.title.toLowerCase().includes(search.toLowerCase());
     return matchCat && matchSearch;
+  });
+
+  const sorted = [...filtered].sort((a, b) => {
+    switch (sort) {
+        case "az":
+        return a.title.localeCompare(b.title);
+        case "za":
+        return b.title.localeCompare(a.title);
+        case "updated":
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+        case "popular":
+        return b.views - a.views;
+        default:
+        return 0;
+    }
   });
 
   const handleDeleteConfirm = () => {
@@ -57,116 +88,157 @@ export default function ProjectInventory() {
     setDeleteTargetId(null);
   };
 
+  // dropdown effect
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSelect = (opt) => {
+    setSelected(opt);
+    setSort(opt.value);
+    setOpen(false);
+  };
+
   return (
     <section>
-      {/* Header row */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <h2 className="text-2xl font-bold text-[#4ecdc4]">Project Inventory</h2>
+      <div className="flex flex-col gap-6 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <h2 id="projectInventory" className="text-3xl font-bold text-(--mint-leaf)">Project Inventory</h2>
 
-        {/* Search */}
-        <div className="flex items-center gap-2 bg-[#0d2035] border border-[#1e3a5f] rounded-full px-4 py-2 w-full sm:w-64">
-          <span className="text-gray-500 text-sm">🔍</span>
-          <input
-            type="text"
-            placeholder="Search projects..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="bg-transparent text-sm text-white placeholder-gray-500 outline-none w-full"
-          />
+            {/* Search */}
+            <div className="flex items-center gap-2 bg-(--dark-teal) rounded-lg px-4 py-4 w-full sm:w-64">
+                <span className="text-(--pacific-cyan) text-sm"><FaSearch /></span>
+                <input
+                    type="text"
+                    placeholder="Search projects..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="bg-transparent text-sm text-white placeholder-(--pacific-cyan) outline-none w-full"
+                />
+            </div>
         </div>
-      </div>
 
-      {/* Filter tabs */}
-      <div className="flex flex-wrap items-center gap-2 mb-6">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border ${
-              activeCategory === cat
-                ? 'bg-[#4ecdc4] text-[#0a1628] border-[#4ecdc4]'
-                : 'border-[#1e3a5f] text-gray-400 hover:text-white hover:border-[#4ecdc4]'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+        {/* Bottom row */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            {/* Categories */}
+            <div className="flex flex-wrap gap-2">
+                {categories.map((cat) => (
+                <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                    activeCategory === cat
+                        ? 'bg-(--mint-leaf) text-white'
+                        : 'border border-(--mint-leaf)/40 text-(--pearl-aqua) hover:bg-(--dark-teal)'
+                    }`}>{cat}
+                </button>
+                ))}
+            </div>
 
-        {/* Filter button */}
-        <button className="ml-auto flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#1e3a5f] text-gray-400 text-sm hover:text-white hover:border-[#4ecdc4] transition-all duration-200">
-          <span>⚙</span> Filter
-        </button>
-      </div>
+            <div className='flex items-center gap-3'>
+                {/* Filter */}
+                <div ref={ref} className="relative">
+                    <button
+                    onClick={() => setOpen((prev) => !prev)}
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-(--mint-leaf)/40 text-(--pearl-aqua)"
+                    >
+                    <FaFilter className="text-xs" />
+                    {selected.label}
+                    </button>
 
-      {/* Add new project button */}
-      <div className="mb-6">
-        <button className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#4ecdc4] text-[#0a1628] font-semibold text-sm hover:bg-[#3ab8b0] transition-all duration-200">
-          <span className="text-lg leading-none">+</span> Add New Project
-        </button>
-      </div>
+                    {open && (
+                        <div className="absolute right-0 top-full mt-2 w-32 z-50 
+                                        rounded-xl bg-(--dark-teal) border border-(--mint-leaf)/20 shadow-lg">
+                        
+                        {options.map((opt, i) => (
+                            <button
+                            key={opt.value}
+                            onClick={() => handleSelect(opt)}
+                            className={`w-full text-left px-4 py-2 text-sm transition
+                                ${i === 0 ? "rounded-t-xl" : ""}
+                                ${i === options.length - 1 ? "rounded-b-xl" : ""}
+                                ${selected.value === opt.value
+                                ? "bg-(--mint-leaf)/30 text-white"
+                                : "text-(--pearl-aqua) hover:bg-(--mint-leaf)/20"
+                                }`}
+                            >
+                            {opt.label}
+                            </button>
+                        ))}
+                        </div>
+                    )}
+                </div>
 
-      {/* Project cards grid */}
+                {/* Add button */}
+                <button className="px-5 py-2 rounded-lg bg-(--pacific-cyan) hover:bg-(--pacific-cyan)/80 text-white">
+                + Add Project
+                </button>
+            </div>
+
+        </div>
+        </div>
+
+      {/* Projects */}
       {filtered.length === 0 ? (
         <div className="text-center text-gray-500 py-20">No projects found.</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map((project) => (
+          {sorted.map((project) => (
             <div
               key={project.id}
-              className="bg-[#0d2035] border border-[#1e3a5f] rounded-2xl overflow-hidden hover:border-[#4ecdc4] transition-all duration-300"
+              className="relative bg-(--mint-leaf)/30 border border-(--dark-teal) rounded-2xl hover:border-(--pacific-cyan) transition-transform duration-300 transform hover:scale-105 hover:rounded-2xl"
             >
               {/* Image placeholder */}
-              <div className="w-full h-44 bg-[#091828] flex items-center justify-center text-gray-700 text-sm">
+              <div className="rounded-t-2xl w-full h-44 bg-[#091828] flex items-center justify-center text-gray-700 text-sm">
                 {/* Ganti dengan <img src={project.image} /> nanti */}
                 Project image
               </div>
 
-              {/* Meta badges */}
-              <div className="px-4 pt-3 flex items-center justify-between">
-                <span className="px-3 py-0.5 rounded-full bg-[#4ecdc4]/20 text-[#4ecdc4] text-xs font-semibold border border-[#4ecdc4]/30">
-                  {project.status}
-                </span>
-                <span className="px-3 py-0.5 rounded-full border border-[#1e3a5f] text-gray-400 text-xs">
-                  {project.year}
-                </span>
+              {/* badges */}
+              <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+                <span className="px-2 py-0.5 rounded-sm bg-(--mint-leaf) text-white text-xs font-semibold">{project.status}</span>
+
+                <span className="px-2 py-0.5 rounded-full border border-(--mint-leaf) text-(--mint-leaf) text-xs">{project.year}</span>
               </div>
 
               {/* Content */}
-              <div className="p-4">
+              <div className="p-4 bg-linear-to-t from-[rgb(var(--mint-leaf))] to-(--dark-teal)">
                 <div className="flex items-start justify-between gap-2 mb-2">
-                  <h3 className="font-bold text-[#4ecdc4] text-base">{project.title}</h3>
+                  <h3 className="font-bold text-(--mint-leaf) text-lg">{project.title}</h3>
 
                   {/* Edit & Delete actions */}
                   <div className="flex items-center gap-2 shrink-0">
                     <button
-                      className="text-gray-400 hover:text-white transition-colors"
+                      className="text-(--pacific-cyan) hover:text-(--pearl-aqua) transition-colors"
                       title="Edit project"
                       onClick={() => {
                         // TODO: navigasi ke halaman edit project
                         console.log('Edit project:', project.id);
                       }}
-                    >
-                      ✏️
-                    </button>
+                    ><MdEdit /></button>
                     <button
-                      className="text-gray-400 hover:text-red-400 transition-colors"
+                      className="text-(--pacific-cyan) hover:text-(--pearl-aqua) transition-colors"
                       title="Delete project"
                       onClick={() => setDeleteTargetId(project.id)}
-                    >
-                      🗑️
-                    </button>
+                    ><FaTrash /></button>
                   </div>
                 </div>
 
-                <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                <p className="text-white text-sm leading-relaxed mb-4">
                   {project.description}
                 </p>
 
                 {/* Footer row */}
-                <div className="flex items-center justify-between text-xs text-gray-500">
+                <div className="flex items-center justify-between text-xs text-(--pacific-cyan)">
                   <span>Updated {project.updatedAt}</span>
                   <span className="flex items-center gap-1">
-                    👁 {project.views}
+                    <FaEye /> {project.views}
                   </span>
                 </div>
               </div>

@@ -105,8 +105,7 @@ export default function TechStack() {
                 active === cat
                   ? 'bg-(--mint-leaf) text-white'
                   : 'border border-(--pearl-aqua)/40 text-white hover:bg-(--dark-teal)'
-              }`}
-            >{cat}</button>
+              }`}>{cat}</button>
           ))}
         </div>
 
