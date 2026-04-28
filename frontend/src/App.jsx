@@ -3,19 +3,20 @@ import LandingPage from './pages/LandingPage';
 import AboutPage from './pages/AboutPage';
 import AdminDashboard from './pages/AdminDashboard';
 import ProjectsPage from './pages/ProjectsPage';
-
+import ChatProvider from './components/chat/ChatProvider';
 
 
 function App() {
   return (
     <BrowserRouter>
-      {/* <CustomCursor /> */}
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/admin" element={<AdminDashboard />} />  
-        <Route path="/projects" element={<ProjectsPage />} />
-      </Routes>
+      <ChatProvider>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/admin" element={<AdminDashboard />} />  
+          <Route path="/projects" element={<ProjectsPage />} />
+        </Routes>
+      </ChatProvider>
     </BrowserRouter>
   );
 }

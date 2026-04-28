@@ -10,10 +10,10 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-(--deepspace-blue)"
     >
       <div className="absolute inset-0 z-0">
-          <Spline
+          {/* <Spline
             scene="https://prod.spline.design/BJemW-DRwm-eeX3z/scene.splinecode" 
             className='w-full h-full'
-          />
+          /> */}
       </div>
 
       <div className="absolute inset-0 bg-(--deepspace-blue)/70 z-0" />

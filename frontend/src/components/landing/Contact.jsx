@@ -1,24 +1,42 @@
+import { useState } from 'react';
+import MessageModal from '../chat/MessageModal';
+import ChatWidget from '../chat/ChatWidget';
 import { FaLinkedin, FaGithub, FaWhatsapp, FaInstagram } from "react-icons/fa";
 
-const contactOptions = [
-  {
-    title: 'Send me a message',
-    subtitle: 'I reply within a day',
-    href: '#',
-  },
-  {
-    title: 'Chat with my assistant',
-    subtitle: 'Instant AI Response',
-    href: '#',
-  },
-  {
-    title: 'Send an email',
-    subtitle: 'devlinmanuel05@gmail.com',
-    href: 'mailto:devlinmanuel05@gmail.com',
-  },
-];
 
 export default function Contact() {
+  const [messageOpen, setMessageOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatMode, setChatMode] = useState("AI");
+
+  const contactOptions = [
+    {
+      title: 'Send me a message',
+      subtitle: 'I reply within a day',
+      onClick: () => {
+        setChatMode('Admin');
+        setChatOpen(true);
+      },
+    },
+    {
+      title: 'Chat with my assistant',
+      subtitle: 'Instant AI Response',
+      onClick: () => {
+        setChatMode('AI');
+        setChatOpen(true);
+      },
+    },
+    {
+      title: 'Send an email',
+      subtitle: 'devlinmanuel05@gmail.com',
+      // onClick: () => window.location.href = 'mailto:devlinmanuel05@gmail.com',
+      onClick: () => {
+        setMessageOpen(true),
+        setChatOpen(false);
+      },
+    },
+  ];
+
   return (
     <section id="contact" className="relative py-20 px-6 bg-(--deepspace-blue)">
       <div
@@ -46,20 +64,20 @@ export default function Contact() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {contactOptions.map((opt) => (
-              <a
+              <button
                 key={opt.title}
-                href={opt.href}
+                onClick={opt.onClick}
                 className={`bg-(--pacific-cyan) border border-none rounded-xl p-4 text-left hover:bg-(--mint-leaf) transition-all duration-200 group`}
               >
                 <p className="text-white text-sm font-semibold mb-1 transition-colors">{opt.title}</p>
                 <p className="text-(--pearl-aqua) text-xs group-hover:text-white">{opt.subtitle}</p>
                 <div className="mt-4 text-white text-lg place-items-end">→</div>
-              </a>
+              </button>
             ))}
           </div>
 
           {/* Social icons */}
-          <div className="mt-8 flex justify-center gap-3 text-gray-500">
+          <div className="mt-8 flex justify-center gap-3 text-(--pacific-cyan)">
             {/* Ganti href dengan link asli nanti */}
             <a href="https://www.linkedin.com/in/devlinmanuel" className="hover:text-[#4ecdc4] transition-colors text-2xl" target="_blank" rel="noopener noreferrer">
               <FaLinkedin />
@@ -76,6 +94,9 @@ export default function Contact() {
           </div>
         </div>
       </div>
+      
+      <MessageModal isOpen={messageOpen} onClose={() => setMessageOpen(false)} />
+      <ChatWidget isOpen={chatOpen} onClose={() => setChatOpen(false)} onMode={chatMode} />
     </section>
   );
 }
