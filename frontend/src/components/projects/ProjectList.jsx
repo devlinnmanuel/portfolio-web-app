@@ -2,11 +2,132 @@ import { useState } from 'react';
 import FeaturedCard from './FeaturedCard';
 import ProjectCard from './ProjectCard';
 import Pagination from './Pagination';
+import { FaSearch } from 'react-icons/fa';
 
 const categories = ['All Projects', 'Full-stack', 'Frontend', 'Backend', 'Database'];
 
 // Data dummy — nanti diambil dari GET /api/projects
 const mockProjects = [
+  {
+    id: 1,
+    title: 'Project Name',
+    description:
+      'A Simple Task Application built using Vue.js as the front end and REST API as the back end, to help users manage daily tasks efficiently by organizing tasks based on day and priority level.',
+    role: 'Role',
+    level: 'Featured',
+    year: '2025',
+    category: 'Full-stack',
+    featured: true,
+    image: null,
+  },
+  {
+    id: 2,
+    title: 'Project Name',
+    description:
+      'A Simple Task Application built using Vue.js as the front end and REST API as the back end, to help users manage daily tasks efficiently by.',
+    role: 'Role',
+    level: 'Intermediate',
+    year: '2025',
+    category: 'Frontend',
+    featured: false,
+    image: null,
+  },
+  {
+    id: 3,
+    title: 'Project Name',
+    description:
+      'A Simple Task Application built using Vue.js as the front end and REST API as the back end, to help users manage daily tasks efficiently by.',
+    role: 'Role',
+    level: 'Beginner',
+    year: '2025',
+    category: 'Backend',
+    featured: false,
+    image: null,
+  },
+  {
+    id: 4,
+    title: 'Project Name',
+    description:
+      'A Simple Task Application built using Vue.js as the front end and REST API as the back end, to help users manage daily tasks efficiently by.',
+    role: 'Role',
+    level: 'Intermediate',
+    year: '2024',
+    category: 'Full-stack',
+    featured: false,
+    image: null,
+  },
+  {
+    id: 5,
+    title: 'Project Name',
+    description:
+      'A Simple Task Application built using Vue.js as the front end and REST API as the back end, to help users manage daily tasks efficiently by.',
+    role: 'Role',
+    level: 'Intermediate',
+    year: '2024',
+    category: 'Database',
+    featured: false,
+    image: null,
+  },
+  {
+    id: 1,
+    title: 'Project Name',
+    description:
+      'A Simple Task Application built using Vue.js as the front end and REST API as the back end, to help users manage daily tasks efficiently by organizing tasks based on day and priority level.',
+    role: 'Role',
+    level: 'Featured',
+    year: '2025',
+    category: 'Full-stack',
+    featured: true,
+    image: null,
+  },
+  {
+    id: 2,
+    title: 'Project Name',
+    description:
+      'A Simple Task Application built using Vue.js as the front end and REST API as the back end, to help users manage daily tasks efficiently by.',
+    role: 'Role',
+    level: 'Intermediate',
+    year: '2025',
+    category: 'Frontend',
+    featured: false,
+    image: null,
+  },
+  {
+    id: 3,
+    title: 'Project Name',
+    description:
+      'A Simple Task Application built using Vue.js as the front end and REST API as the back end, to help users manage daily tasks efficiently by.',
+    role: 'Role',
+    level: 'Beginner',
+    year: '2025',
+    category: 'Backend',
+    featured: false,
+    image: null,
+  },
+  {
+    id: 4,
+    title: 'Project Name',
+    description:
+      'A Simple Task Application built using Vue.js as the front end and REST API as the back end, to help users manage daily tasks efficiently by.',
+    role: 'Role',
+    level: 'Intermediate',
+    year: '2024',
+    category: 'Full-stack',
+    featured: false,
+    image: null,
+  },
+  {
+    id: 5,
+    title: 'Project Name',
+    description:
+      'A Simple Task Application built using Vue.js as the front end and REST API as the back end, to help users manage daily tasks efficiently by.',
+    role: 'Role',
+    level: 'Intermediate',
+    year: '2024',
+    category: 'Database',
+    featured: false,
+    image: null,
+  },
   {
     id: 1,
     title: 'Project Name',
@@ -107,20 +228,18 @@ export default function ProjectList() {
             <button
               key={cat}
               onClick={() => handleCategoryChange(cat)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all duration-200 ${
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                 activeCategory === cat
-                  ? 'bg-[#4ecdc4] text-[#0a1628] border-[#4ecdc4]'
-                  : 'border-[#1e3a5f] text-gray-400 hover:text-white hover:border-[#4ecdc4]'
+                  ? 'bg-(--mint-leaf) text-white'
+                  : 'border border-(--mint-leaf)/40 text-(--pearl-aqua) hover:bg-(--dark-teal)'
               }`}
-            >
-              {cat}
-            </button>
+            >{cat}</button>
           ))}
         </div>
 
         {/* Search */}
-        <div className="flex items-center gap-2 bg-[#0d2035] border border-[#1e3a5f] rounded-full px-4 py-2 w-full sm:w-56">
-          <span className="text-gray-500 text-sm">🔍</span>
+        <div className="flex items-center gap-2 bg-(--dark-teal) rounded-lg px-4 py-4 w-full sm:w-64">
+          <span className="text-(--pacific-cyan) text-sm"><FaSearch /></span>
           <input
             type="text"
             placeholder="Search projects..."
@@ -135,7 +254,7 @@ export default function ProjectList() {
       </div>
 
       {/* Result count */}
-      <p className="text-[#4ecdc4] text-sm mb-6">
+      <p className="text-(--mint-leaf) text-sm mb-6">
         Showing {filtered.length} Project{filtered.length !== 1 ? 's' : ''}
       </p>
 

@@ -3,7 +3,7 @@ import { useState } from 'react';
 const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Projects', href: '#projects' },
+  { label: 'Projects', href: '/projects' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -26,16 +26,20 @@ export default function Navbar({ page }) {
             {navLinks.map((link) => (
             <a
                 key={link.label}
-                href={link.href}
+                href={
+                link.label === 'Projects'
+                    ? page === 'Home'
+                        ? '#projects'
+                        : '/projects'
+                    : link.href
+                }
                 onClick={() => setActive(link.label)}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${
                 active === link.label
                     ? 'bg-(--mint-leaf) text-white'
                     : 'text-white hover:text-white hover:bg-white/10'
                 }`}
-            >
-                {link.label}
-            </a>
+            >{link.label}</a>
             ))}
 
             {/* Language Toggle */}

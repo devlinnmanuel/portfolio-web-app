@@ -1,6 +1,6 @@
 export default function FeaturedCard({ project }) {
   return (
-    <div className="relative w-full rounded-2xl overflow-hidden border border-[#1e3a5f] hover:border-[#4ecdc4] transition-all duration-300 mb-5">
+    <div className="relative w-full rounded-2xl overflow-hidden border border-[#1e3a5f] hover:border-[#4ecdc4] transition-transform duration-300 transform hover:scale-105 mb-5">
 
       {/* Background image placeholder */}
       <div className="absolute inset-0 bg-[#091828]">
@@ -12,35 +12,27 @@ export default function FeaturedCard({ project }) {
       </div>
 
       {/* Content overlay */}
-      <div className="relative z-10 p-7 md:p-10 min-h-60 flex flex-col justify-between">
+      <div className="group relative z-10 p-7 md:p-10 min-h-60 flex flex-col justify-between">
 
         {/* Top row */}
         <div className="flex items-start justify-between">
-          <span className="flex items-center gap-2 text-yellow-400 font-semibold text-sm">
+          <span className="flex items-center gap-2 text-(--pearl-aqua) font-semibold text-sm">
             ★ Featured Project
           </span>
-          <span className="px-3 py-1 rounded-full border border-[#2a5560] text-gray-300 text-xs">
-            {project.year}
-          </span>
+          <span className="px-3 py-1 rounded-full border border-white text-white text-xs">{project.year}</span>
         </div>
 
         {/* Bottom content */}
         <div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">{project.title}</h2>
-          <p className="text-gray-300 text-sm leading-relaxed max-w-lg mb-5">
-            {project.description}
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-(--pearl-aqua) mb-3">{project.title}</h2>
+          <p className="text-white text-sm leading-relaxed max-w-lg mb-5">{project.description}</p>
 
           <div className="flex items-center justify-between">
-            <span className="px-4 py-1.5 rounded-full bg-[#4ecdc4] text-[#0a1628] text-xs font-semibold">
-              {project.role}
-            </span>
+            <span className="px-4 py-1.5 rounded-lg bg-(--mint-leaf) text-white text-xs font-semibold">{project.role}</span>
             <a
               href={`/projects/${project.id}`}
-              className="flex items-center gap-2 text-white font-semibold text-sm hover:text-[#4ecdc4] transition-colors"
-            >
-              View Details →
-            </a>
+              className="flex items-center gap-2 text-white font-semibold text-sm opacity-0 group-hover:opacity-100 hover:text-[#4ecdc4] transition-colors"
+            >View Details →</a>
           </div>
         </div>
       </div>

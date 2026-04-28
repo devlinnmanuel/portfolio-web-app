@@ -6,7 +6,7 @@ export default function ProjectCard({ project }) {
   };
 
   return (
-    <div className="relative rounded-2xl overflow-hidden border border-[#1e3a5f] hover:border-[#4ecdc4] transition-all duration-300 group">
+    <div className="relative rounded-2xl overflow-hidden border border-[#1e3a5f] hover:border-[#4ecdc4] transition-transform duration-300 transform hover:scale-105 group">
 
       {/* Background image placeholder */}
       <div className="absolute inset-0 bg-[#091828]">
@@ -22,23 +22,14 @@ export default function ProjectCard({ project }) {
 
         {/* Top row */}
         <div className="flex items-start justify-between">
-          <span className={`text-xs font-semibold ${levelColor[project.level] || 'text-gray-400'}`}>
-            {project.level}
-          </span>
-          <span className="px-3 py-0.5 rounded-full border border-[#2a5560] text-gray-400 text-xs">
-            {project.year}
-          </span>
+          <span className={`text-xs font-semibold ${levelColor[project.level] || 'text-(--pearl-aqua)'}`}>{project.level}</span>
+          <span className="px-3 py-0.5 rounded-full border border-white text-white text-xs">{project.year}</span>
         </div>
 
-        {/* Bottom content */}
         <div>
-          <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-          <p className="text-gray-400 text-sm leading-relaxed mb-4 line-clamp-3">
-            {project.description}
-          </p>
-          <span className="px-4 py-1.5 rounded-full bg-[#4ecdc4] text-[#0a1628] text-xs font-semibold">
-            {project.role}
-          </span>
+          <h3 className="text-xl font-bold text-(--pearl-aqua) mb-2">{project.title}</h3>
+          <p className="text-white text-sm leading-relaxed mb-4 line-clamp-3">{project.description}</p>
+          <span className="px-4 py-1.5 rounded-lg bg-(--mint-leaf) text-white text-xs font-semibold">{project.role}</span>
         </div>
       </div>
     </div>
