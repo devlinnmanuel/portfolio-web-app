@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
+
 export default function ProjectCard({ project }) {
+  const navigate = useNavigate();
   const levelColor = {
     Beginner: 'text-green-400',
     Intermediate: 'text-yellow-400',
@@ -29,7 +33,14 @@ export default function ProjectCard({ project }) {
         <div>
           <h3 className="text-xl font-bold text-(--pearl-aqua) mb-2">{project.title}</h3>
           <p className="text-white text-sm leading-relaxed mb-4 line-clamp-3">{project.description}</p>
-          <span className="px-4 py-1.5 rounded-lg bg-(--mint-leaf) text-white text-xs font-semibold">{project.role}</span>
+          <div className="flex items-center justify-between">
+            <span className="px-4 py-1.5 rounded-lg bg-(--mint-leaf) text-white text-xs font-semibold">{project.role}</span>
+            <button 
+              onClick={() => navigate(`/projects/${project.id}`)}
+              className="flex items-center gap-2 text-white font-semibold text-sm opacity-0 group-hover:opacity-100 hover:text-[#4ecdc4] transition-colors">  
+              View Details →
+            </button>
+          </div>
         </div>
       </div>
     </div>

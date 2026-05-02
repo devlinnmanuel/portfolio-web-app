@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 // Data ini nantinya akan diambil dari API backend
 const projects = [
   {
@@ -30,6 +32,8 @@ const projects = [
 ];
 
 export default function Projects() {
+  const navigate = useNavigate();
+
   return (
     <section id="projects" className="relative py-20 px-6 bg-(--deepspace-blue)">
       <div
@@ -68,7 +72,7 @@ export default function Projects() {
 
               {/* Hover overlay */}
               <div className="bg-[--mint-leaf]/40 backdrop-blur-sm border border-white/10 absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:rounded-2xl">
-                <button className="px-5 py-2 rounded-full border border-(--mint) text-white text-sm hover:bg-white hover:text-black transition-all duration-200">View Details</button>
+                <button onClick={() => navigate(`/projects/${project.id}`)} className="px-5 py-2 rounded-full border border-(--mint) text-white text-sm hover:bg-white hover:text-black transition-all duration-200">View Details</button>
               </div>
 
               {/* Content */}
@@ -86,9 +90,7 @@ export default function Projects() {
           <a
             href="/projects"
             className="text-(--pearl-aqua) text-sm font-medium hover:underline inline-flex items-center gap-1"
-          >
-            View All Projects →
-          </a>
+          >View All Projects →</a>
         </div>
       </div>
     </section>

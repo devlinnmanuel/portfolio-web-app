@@ -1,4 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+
+
 export default function FeaturedCard({ project }) {
+  const navigate = useNavigate();
+  
   return (
     <div className="relative w-full rounded-2xl overflow-hidden border border-[#1e3a5f] hover:border-[#4ecdc4] transition-transform duration-300 transform hover:scale-105 mb-5">
 
@@ -29,10 +34,16 @@ export default function FeaturedCard({ project }) {
 
           <div className="flex items-center justify-between">
             <span className="px-4 py-1.5 rounded-lg bg-(--mint-leaf) text-white text-xs font-semibold">{project.role}</span>
-            <a
-              href={`/projects/${project.id}`}
-              className="flex items-center gap-2 text-white font-semibold text-sm opacity-0 group-hover:opacity-100 hover:text-[#4ecdc4] transition-colors"
-            >View Details →</a>
+            <button 
+              onClick={() => navigate(`/projects/${project.id}`)}
+              className="flex items-center gap-2 text-white font-semibold text-sm opacity-0 group-hover:opacity-100 hover:text-[#4ecdc4] transition-colors">  
+              View Details →
+            </button>
+
+              {/* <a
+                href={`/projects/${project.id}`}
+                className="flex items-center gap-2 text-white font-semibold text-sm opacity-0 group-hover:opacity-100 hover:text-[#4ecdc4] transition-colors"
+              >View Details →</a> */}
           </div>
         </div>
       </div>

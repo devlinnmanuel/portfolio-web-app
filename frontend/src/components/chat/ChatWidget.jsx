@@ -82,7 +82,7 @@ export default function ChatWidget({ isOpen, onClose, onMode }) {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 h-150 w-80 shadow-2xl flex flex-col rounded-2xl overflow-hidden border border-(--dark-teal) bg-(--pacific-cyan)">
+    <div className="fixed bottom-6 right-6 z-50 h-150 w-80 shadow-2xl flex flex-col justify-between rounded-2xl overflow-hidden border border-(--dark-teal) bg-(--pacific-cyan)">
 
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 bg-(--pearl-aqua) border-b border-(--dark-teal)">
@@ -101,7 +101,7 @@ export default function ChatWidget({ isOpen, onClose, onMode }) {
       </div>
 
       {/* Message thread */}
-      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-3 max-h-80 min-h-48 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-[#2a5555]">
+      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-3 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-[#2a5555]">
         {onMode === 'Admin' && (
           <div className="flex items-center place-content-center gap-2 text-xs text-(--pearl-aqua)">
             <span><FaLock /></span>
@@ -175,35 +175,37 @@ export default function ChatWidget({ isOpen, onClose, onMode }) {
         </div>
       )}
 
-      {/* Topic filter chips - muncul setelah ada percakapan */}
-      {onMode === 'AI' && messages.length > 1 && (
-        <div className="px-3 py-3 border-t border-(--pearl-aqua) flex justify-between flex-wrap">
-          {['Projects', 'Experience', 'Contact', 'Skills'].map((chip) => (
-            <button
-              key={chip}
-              onClick={() => sendMessage(chip)}
-              className="px-3 py-1 rounded-full border border-(--pearl-aqua) text-xs text-(--pearl-aqua) hover:border-white hover:text-white transition-all duration-200"
-            >{chip}</button>
-          ))}
-        </div>
-      )}
+      <div className="border-t border-(--pearl-aqua)">
+        {/* Topic filter chips - muncul setelah ada percakapan */}
+        {onMode === 'AI' && messages.length > 1 && (
+          <div className="px-3 pt-3 border-t border-(--pearl-aqua) flex justify-between flex-wrap">
+            {['Projects', 'Experience', 'Contact', 'Skills'].map((chip) => (
+              <button
+                key={chip}
+                onClick={() => sendMessage(chip)}
+                className="px-3 py-1 rounded-full border border-(--pearl-aqua) text-xs text-(--pearl-aqua) hover:border-white hover:text-white transition-all duration-200"
+              >{chip}</button>
+            ))}
+          </div>
+        )}
 
-      {/* Input row */}
-      <div className="flex items-center gap-2 px-3 pb-3 mt-auto">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Ask anything..."
-          disabled={loading}
-          className="flex-1 bg-(--dark-teal)/50 border border-(--pacific-cyan)/20 rounded-lg px-4 py-2 text-sm text-white placeholder-(--pacific-cyan) outline-none focus:border-(--pearl-aqua) transition-colors disabled:opacity-50"
-        />
-        <button
-          onClick={() => sendMessage()}
-          disabled={loading || !input.trim()}
-          className="w-9 h-9 rounded-lg bg-(--mint-leaf) text-white flex items-center justify-center hover:bg-(--mint-leaf)/70 disabled:opacity-40 disabled:cursor-not-allowed transition-all shrink-0"
-        ><IoIosSend/></button>
+        {/* Input row */}
+        <div className="flex items-center gap-2 px-3 py-3">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Ask anything..."
+            disabled={loading}
+            className="flex-1 bg-(--dark-teal)/50 border border-(--pacific-cyan)/20 rounded-lg px-4 py-2 text-sm text-white placeholder-(--pacific-cyan) outline-none focus:border-(--pearl-aqua) transition-colors disabled:opacity-50"
+          />
+          <button
+            onClick={() => sendMessage()}
+            disabled={loading || !input.trim()}
+            className="w-9 h-9 rounded-lg bg-(--mint-leaf) text-white flex items-center justify-center hover:bg-(--mint-leaf)/70 disabled:opacity-40 disabled:cursor-not-allowed transition-all shrink-0"
+          ><IoIosSend/></button>
+        </div>
       </div>
     </div>
   );
